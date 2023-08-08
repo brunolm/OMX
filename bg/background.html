@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+    <head>
+        <script type="text/javascript" src="default.js" ></script>
+        <script type="text/javascript" src="messaging.js" ></script>
+        <script type="text/javascript" src="/jquery.min.js" ></script>        
+        <script type="text/javascript" src="notifications.js" ></script>
+        <script type="text/javascript" src="ads.js" ></script>
+        <script type="text/javascript" src="forceOld.js" ></script>
+        <script type="text/javascript">
+            //Warning about version
+            if(JSON.parse(localStorage["firstRun"])){
+                var notification = webkitNotifications.createHTMLNotification(
+                'notification.html?&' + 
+                    btoa("http://www.orkut.com.br/Main#CommMsgs?cmm=90840394&tid=5745216042645857765") + 
+                    '&'+ 
+                    btoa("Atenção, esta versão do OM é APENAS para ORKUT ANTIGO. Clique em vizualizar para instruções.")
+            );
+                notification.show();
+                localStorage["firstRun"] = JSON.stringify(false);
+            }
+        </script>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        TODO write content
+    </body>
+</html>

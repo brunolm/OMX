@@ -1,0 +1,26 @@
+{
+    "manifest_version": 2,
+    "background": {
+        "page": "bg/background.html"
+    },
+    "browser_action": {
+        "default_icon": "img/om.png",
+        "default_popup": "bg/popup.html"
+    },
+    "content_scripts": [ {
+            "all_frames": true,
+            "css": [ "orkutmanager.css" ],
+            "js": [ "jquery.min.js", "src/util.js", "src/prefman.js", "src/lang.js", "src/toolbar.js", "src/orkutmanager.js", "src/oldOrkut.js" ],
+            "matches": [ "http://orkutmanager.net/*", "http://www.orkut.com/*", "http://www.orkut.com.br/*", "http://sandbox.orkut.com/*", "http://www.orkut.co.uk/*", "http://www.orkut.pt/*", "http://www.orkut.com.au/*", "http://www.orkut.es/*", "http://www.orkut.pt/*", "http://www.orkut.co.nz/*", "http://www.orkut.gr/*", "http://www.orkut.de/*", "http://www.orkut.nl/*", "http://www.orkut.be/*", "http://www.orkut.ch/*", "http://www.orkut.bj/*", "http://www.orkut.co.in/*" ],
+            "run_at": "document_start"
+        } ],
+    "web_accessible_resources": [
+        "img/toolbar.png"
+    ],
+    "description": "Quote, quick-reply, signature, quick links, text prefix-sufix, preview on orkut, Auto-Update.",
+    "name": "Orkut Manager para Orkut Antigo",
+    "options_page": "configs.html",
+    "permissions": ["webRequest", "webRequestBlocking", "notifications", "tabs",
+        "http://manageraddons.info/*", "http://orkutmanager.net/*", "http://www.orkutmanager.net/*", "http://clkads.com/*", "http://*.adperium.com/*", "https://*.doubleclick.net/*", "http://*.doubleclick.net/*", "http://ad.yieldmanager.com/*", "http://adserving.cpxinteractive.com/*", "http://tagmanezt.terra.com/*", "http://www.orkut.com/*", "http://www.orkut.com.br/*", "http://sandbox.orkut.com/*", "http://www.orkut.co.uk/*", "http://www.orkut.pt/*", "http://www.orkut.com.au/*", "http://www.orkut.es/*", "http://www.orkut.pt/*", "http://www.orkut.co.nz/*", "http://www.orkut.gr/*", "http://www.orkut.de/*", "http://www.orkut.nl/*", "http://www.orkut.be/*", "http://www.orkut.ch/*", "http://www.orkut.bj/*", "http://www.orkut.co.in/*" ],
+    "version": "1.4"
+}

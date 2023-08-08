@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" src="/jquery.min.js" ></script>
+        <script type="text/javascript">
+            window.onload = function(){
+                var items = window.location.href.split("&");
+                link = items[1];
+                console.log(atob(link));
+                msg = items[2];
+                $(".right a").attr('href', atob(link));
+                $(".right span").text(atob(msg));
+            } 
+        </script>
+        <style type="text/css">
+        .left, .right{
+            max-width: 200px;
+            font-family: Arial;
+            margin-left: 5px;
+            float: left;
+            display: block;
+            font-size: 12px;
+        }
+        .right span{
+            display:block;
+            margin-top: 3px;
+        }
+        </style>
+    </head>
+    <body>
+        <div class="left">
+            <img src="/img/OM-Warn.png" alt="Aviso">
+        </div>
+        <div class="right">
+            <b>Orkut Manager</b> - <a onclick="chrome.tabs.create({url: this.href}); return false" href="">Visualizar</a>
+            <br />
+            <span></span>
+        </div>
+
+    </body>
+</html>

@@ -1,0 +1,133 @@
+<!--
+        Copyright 2010 Orkut Manager Team
+-->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+    <head>
+
+        <title>Orkut Manager</title>
+
+        <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+
+        <script type="text/javascript" src="/jquery.min.js"></script>
+        <script type="text/javascript" src="popup.js"></script>
+        <style type='text/css'>
+            *{
+                margin:0;
+                padding:0;
+            }
+            body,a{
+                width: 250px;
+                text-decoration: none;
+                background: #FFF;
+                font-family: sans-serif;
+                font-size: 12px;
+                border:0;
+            }
+            #container{
+                padding: 6px;
+            }
+            div.image_header img{
+                margin-left: 25px;
+            }
+            div.desc{
+                font-size: 11px;
+                color: #8C8C8C;
+                border-bottom: #8C8C8C solid 1px;
+            }
+            ul{
+                list-style-type: none;
+                margin-bottom: 20px;
+            }
+            ul li{
+                margin: 2px;
+                color: darkblue;
+            }
+            ul li span:hover{
+                text-decoration: underline;
+                cursor: pointer;
+            }
+            img {
+                margin-right: 5px;
+                margin-left: 5px;
+                border:0;
+                vertical-align: middle;
+            }
+            ul.bookmarks img{
+                cursor: pointer;
+            }
+            .remove_bk, .add_bk{
+                display: none;
+            }
+            .add_bk{
+                width: 238px;
+            }
+            .add_bk span{
+                float: left;
+                width: 43px;
+                display: block;
+            }
+            .add_bk input{
+                font-size: 11px;
+                float: left;
+                margin-top: 2px;
+            }
+            .add_bk input#nome, .add_bk input#url{
+                width: 150px;
+                display: block;
+                outline:none;
+                border-radius: 3px 3px 3px 3px;
+                border: 1px solid #AAAAAA;
+                padding: 2px 1px;                
+            }
+            input:focus{
+                -webkit-box-shadow:0 0 8px rgba(82, 168, 236, 0.5);
+                border-color: rgba(82, 168, 236, 0.75) !important;
+                outline: medium none;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="container">
+            <div class="image_header">
+                <img src="/img/orkutmanager.png" alt="Orkut Manager" />
+            </div>
+            <ul style="margin-bottom: 10px;">
+                <li><a href="http://orkut.com.br/Home" id="old_orkut"></a></li>
+            </ul>
+            <ul style="margin-bottom: 10px;">
+                <li><a href="#" onclick="window.open(chrome.extension.getURL('configs.html'))"><img alt="Comunidades" src="/img/i_tool.png" /><span>Configurações</span></a></li>
+            </ul>
+            <div class="desc">Links:</div>
+            <ul class="links">
+                <li><a id="home_links" href="http://orkut.com.br/home"><img alt="Inicio" src="/img/inicio.png" /><span>Início</span></a></li>
+                <li><a href="http://orkut.com.br/Profile"><img alt="Perfil" src="/img/perfil.png" /><span>Perfil</span></a></li>
+                <li><a id="scrap_links" href="http://orkut.com.br/Scrapbook"><img alt="Scraps" src="/img/recados.png" /><span>Recados</span></a></li>
+                <li><a href="http://orkut.com.br/AlbumList"><img alt="Fotos" src="/img/fotos.png" /><span>Fotos</span></a></li>
+                <li><a href="http://orkut.com.br/FavoriteVideos"><img alt="Videos" src="/img/videos.png" /><span>Vídeos</span></a></li>
+                <li><a href="http://orkut.com.br/Communities"><img alt="Comunidades" src="/img/comunidades.png" /><span>Comunidades</span></a></li>
+                <li><a href="http://orkut.com.br/GeneralSettings"><img alt="Comunidades" src="/img/i_tool.png" /><span>Configurações</span></a></li>
+            </ul>
+            <div class="desc">Favoritos <a id="man_bk" href="#"><small>(gerenciar)</small></a>.:</div>
+            <ul class="bookmarks">
+                <li></li>
+            </ul>
+            <div class="add_bk">
+                <div class="desc">Adicionar favorito:</div>
+                <span>Nome:</span><input type="text" id="nome" /><br />
+                <span>Url:</span><input type="text" id="url" />
+                <input type="submit" value="Adicionar" id="send" />
+                <div style="clear:both"></div>
+            </div>
+        </div>
+    </body>
+
+</html>
+

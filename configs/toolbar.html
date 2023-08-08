@@ -1,0 +1,43 @@
+<h2>Fontes</h2>
+<div class="listdark">
+    <div id="addRowFont">
+        <span class="grabtn">
+            <a class="btn" href="javascript:void(0);">Adicionar</a></span>
+        <span class="btnboxr"><img width="5" height="1" alt="" src="http://static1.orkut.com/img/b.gif">
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#addRowFont span").click(function(){
+        $(this).parent().before('<div><label>Nome: </label><input type="text" name="font_name" value="" size="8" /><label> Fonte: </label><input type="text" name="font_value" value="" size="50" /></div>');
+    });
+</script>
+<h2>Tags</h2>
+<div class="listdark">
+    <div id="addRowTag">
+        <span class="grabtn">
+            <a class="btn" href="javascript:void(0);">Adicionar</a></span>
+        <span class="btnboxr"><img width="5" height="1" alt="" src="http://static1.orkut.com/img/b.gif">
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#addRowTag span").click(function(){
+        $(this).parent().before('<div><label>TAG: </label><input type="text" name="tag_name" value="" size="8" /></div>');
+    });
+</script>
+
+<h2>Caracteres</h2>
+<div class="listdark">
+    <div id="addRowChar">
+        <span class="grabtn">
+            <a class="btn" href="javascript:void(0);">Adicionar</a></span>
+        <span class="btnboxr"><img width="5" height="1" alt="" src="http://static1.orkut.com/img/b.gif">
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#addRowChar span").click(function(){
+        $(this).parent().before('<div><label>Caractere: </label><input type="text" name="char_txt" value="" size="8" /></div>');
+    });
+</script>

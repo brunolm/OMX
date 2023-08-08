@@ -1,0 +1,32 @@
+<div class="listdark">
+    <div id="addRow">
+        <span class="grabtn">
+            <a class="btn" href="javascript:void(0);">Adicionar</a></span>
+        <span class="btnboxr"><img width="5" height="1" alt="" src="http://static1.orkut.com/img/b.gif">
+        </span>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#addRow span").click(function(){
+        $(this).parent().before('<div><label>Nome: </label><input type="text" name="emote_name" value="" size="8" /><label> Url: </label><input type="text" name="emote_value" value="" size="50" /></div>');
+    });
+    
+    $("#MassEmoticonsButton").live('click', function(e){
+        var List = $("#MassEmoticonsInput").val();
+        try{
+            $(".listdark div").not("#addRow").remove();
+            $parsed = JSON.parse(List);
+            if($("#keep_old:checked").length){
+                $old = JSON.parse(localStorage['EmoticonsList']);
+                for(i in $old)
+                    $parsed[i]=$old[i];
+            }
+            localStorage['EmoticonsList'] = JSON.stringify($parsed);            
+            loadSettings();
+            alert("Lista Adicionada e salva!");
+        }catch(ex){
+            alert("Lista inválida");
+        }
+        e.preventDefault();
+    });
+</script>
