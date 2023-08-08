@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is Mozilla Add On Install Manifest Schema.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+**** END LICENSE BLOCK ****
+-->
+<xs:schema targetNamespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           
+    xmlns:enrdf="http://www.mozilla.org/2004/em-rdf#"
+    elementFormDefault="qualified"
+>
+
+  <xs:import namespace="http://www.mozilla.org/2004/em-rdf#" schemaLocation="em-rdf.xsd" />
+  
+  <xs:element name="RDF">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Description" minOccurs="1" maxOccurs="1" type="mozRequired" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="mozRequired">
+    <xs:complexContent>
+      <xs:extension base="enrdf:mozRequired">
+        <xs:attribute name="about" type="xs:anyURI" fixed="urn:mozilla:install-manifest" use="required" />
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="targetApp">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element name="Description" type="enrdf:applicationDescription" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="requiredExtension">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element name="Description" type="enrdf:requiredExtension" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="localized">
+    <xs:sequence minOccurs="1" maxOccurs="1">
+      <xs:element name="Description" type="enrdf:localized" />
+    </xs:sequence>
+  </xs:complexType>
+  
+</xs:schema>

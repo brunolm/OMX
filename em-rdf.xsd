@@ -1,0 +1,2347 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+**** BEGIN LICENSE BLOCK *****
+The contents of this file are subject to the Mozilla Public License
+Version 1.1 (the "License"); you may not use this file except in
+compliance with the License. You may obtain a copy of the License at
+http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS"
+basis, WITHOUT WARRANTY OF ANY KIND, either express or implied. See the
+License for the specific language governing rights and limitations
+under the License.
+
+The Original Code is Mozilla Add On Install Manifest Schema.
+
+The Initial Developer of the Original Code is Mihailo Lalevic.
+Copyright (C) 2008, Mihailo Lalevic. All Rights Reserved.
+
+Contributor(s): 
+**** END LICENSE BLOCK ****
+-->
+<xs:schema 
+    targetNamespace="http://www.mozilla.org/2004/em-rdf#"
+    xmlns="http://www.mozilla.org/2004/em-rdf#"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    
+    elementFormDefault="qualified"
+>
+  <!-- TODO: add locale strings -->
+  
+  <xs:import namespace="http://www.w3.org/1999/02/22-rdf-syntax-ns#" schemaLocation="CustomInstallRdf.xsd" />
+
+  <xs:complexType name="mozRequired">
+        <xs:choice minOccurs="5" maxOccurs="unbounded">
+          <xs:element name="id" type="extensionId" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                The id of the extension, which is a:
+
+                * GUID (Firefox 1.0)
+                * New in Firefox 1.5 A string formatted like so: extensionname@organization.tld
+
+                The latter format is significantly easier to generate and manipulate. Firefox 1.5 has checking to ensure that your id falls into one format or the other and will refuse to install addons that have malformed ids.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="version" type="version" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                A version string identifying the version of the addon being supplied.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="type" type="extensionType" default="2" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                An integer value representing the type of addon.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element ref="targetApplication" minOccurs="1" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                An object specifying an application targeted by this addon. This means that the addon will work with the application identified by the id property (&lt;em:id&gt;
+                  ) specified (for a comprehensive list of application IDs see Valid application versions for add-on developers), from the minimum version (&lt;em:minVersion&gt;
+                    ) up to and including the maximum version (&lt;em:maxVersion&gt;). These version strings are formatted in the same fashion as the version property and will be compared to the application version; this allows the extension author to specify which versions of Firefox an extension has been tested with. 
+      </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="name" type="xs:string" minOccurs="1" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                The name of the addon- intended for display in the UI.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="updateURL" type="url" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                A link to a custom Update Manifest file that specifies available updates to the addon. The format is described below. If enabled, the addon manager periodically checks with this Manifest file to determine if newer versions are available.
+                New in Firefox 3 For security reasons, Gecko 1.9 applications require that if you specify an updateURL, it must be an https URL, or you must include an updateKey.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="updateKey" type="xs:base64Binary" minOccurs="0" maxOccurs="1" >
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                To ensure the security of update rdf data that is retrieved over plain http you must use a digital signature to verify the contents of the data. In order to do so you must include the public part of the cryptographic key in an updateKey entry in the install.rdf of the add-on. This can be generated using the McCoy tool. Any line breaks and whitespace as part of this entry are ignored.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="optionsURL" type="url" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                The chrome:// URL of the extension's options dialog box. This is only useful to extensions. If this property is specified, when the extension is selected in the Extensions list, the Options button is enabled and will show this.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="aboutURL" type="chromeUrl" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                The chrome:// URL of the extension's about dialog box. This is only useful to extensions. If this property is specified, when the extension is selected in the Extensions list, the About... link in the extension's context menu will show this dialog, rather than the default.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="iconURL" type="chromeUrl" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                A chrome:// URL to a 32x32 icon to display in the addons list. If this property is not specified, a default icon is used.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="bootstrap" type="xs:boolean" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                Boolean value indicating if the addon load the bootstrap.js file.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="unpack" type="xs:boolean" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                Whether the extension should be unpacked or packed into a xpi file.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="targetPlatform" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                New in Firefox 1.5 A string specifying a platform that the addon supports. It contains either the value of OS_TARGET alone or combined with TARGET_XPCOM_ABI, separated by an underscore (_).
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="requires" type="rdf:requiredExtension" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                New in Firefox 2 This tag has a similar syntax to the em:targetApplication
+                  tag. If the addon specified by the em:id
+                    tag is not installed or has an incompatible version, the extension manager will disable your extension and show the message "Requires additional items". You can add as many em:requires tags as you like. Your extension will be disabled if any of the specified requirements fail. 
+      </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:group ref="localizableParameters" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element ref="localized" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                New in Firefox 3 Allows you to localize the add-on's name, description, contributors and other metadata. The localized description must specify at least one em:locale which indicates which locales to use this information for.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:choice>
+  </xs:complexType>
+
+  <xs:group name="applicationRequired">
+    <xs:all>
+      <xs:element name="id" type="applicationTargetIdValues" minOccurs="1" maxOccurs="1" />
+      <xs:element name="minVersion" type="wildcardVersion" minOccurs="1" maxOccurs="1" />
+      <xs:element name="maxVersion" type="wildcardVersion" minOccurs="1" maxOccurs="1" />
+    </xs:all>
+  </xs:group>
+
+  <xs:group name="requiredExtension">
+    <xs:all>
+      <xs:element name="id" type="extensionId" minOccurs="1" maxOccurs="1" />
+      <xs:element name="minVersion" type="wildcardVersion" minOccurs="1" maxOccurs="1" />
+      <xs:element name="maxVersion" type="wildcardVersion" minOccurs="1" maxOccurs="1" />
+    </xs:all>
+  </xs:group>
+
+  <xs:group name="localizableParameters">
+    <xs:choice>
+      <xs:element name="description" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+            A short description of the add-on - intended for display in the user interface. This description should fit on one short line of text.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="creator" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+            The name of the creator/principal developer - intended for display in the user interface.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="homepageURL" type="url" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+            A link to the addon's home page - intended for display in the user interface.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="developer" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+            New in Firefox 2 The name(s) of co-developers. You may specify more than one of this value to specify multiple developers.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="translator" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+            New in Firefox 2 The name(s) of translators. You may specify more than one of this value to specify multiple translators.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="contributor" type="xs:string" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+            The name(s) of additional contributors. You may specify more than one of this value to specify multiple contributors.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:choice>
+  </xs:group>
+
+  <xs:complexType name="localizationParameters">
+    <xs:choice minOccurs="1" maxOccurs="unbounded">
+        <xs:choice minOccurs="1" maxOccurs="2">
+          <xs:group ref="localizableParameters" minOccurs="0" maxOccurs="unbounded" />
+          <xs:element name="locale" type="locale" minOccurs="1" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                At least one locale to which the information in the em:localized applies
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="name" type="xs:string" minOccurs="0" maxOccurs="1">
+            <xs:annotation>
+              <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+                Localized name of the addon- intended for display in the UI for the given locale
+              </xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:choice>
+    </xs:choice>
+  </xs:complexType>
+
+  <xs:element name="targetApplication" type="rdf:targetApp" />
+  <xs:element name="localized" type ="rdf:localized" />
+
+  <xs:complexType name="applicationDescription">
+    <xs:group ref="applicationRequired" />
+  </xs:complexType>
+
+  <xs:complexType name="requiredExtension">
+    <xs:group ref="requiredExtension" />
+  </xs:complexType>
+
+  <xs:complexType name="localized">
+    <xs:complexContent>
+      <xs:extension base="localizationParameters" />
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:simpleType name="GUID">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The representation of a GUID, generally the id of an element.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\{[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}\}"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="emailLike">
+    <xs:annotation>
+      <xs:documentation>
+        An email like extension id type.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+(\.[A-Za-z]{2,4})?"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="extensionId">
+    <xs:annotation>
+      <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+        The id of the extension, which is a:
+
+        * GUID (Firefox 1.0)
+        * New in Firefox 1.5 A string formatted like so: extensionname@organization.tld
+
+        The latter format is significantly easier to generate and manipulate. Firefox 1.5 has checking to ensure that your id falls into one format or the other and will refuse to install addons that have malformed ids.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:union memberTypes="GUID emailLike" />
+  </xs:simpleType>
+
+  <xs:simpleType name="version">
+    <xs:annotation>
+      <xs:documentation source="http://developer.mozilla.org/en/docs/install.rdf">
+        A version string identifying the version of the addon being supplied.
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:pattern value="-?\d+[a-zA-z]*-?\d*[a-zA-z]*(\.-?\d*[a-zA-z]*-?\d*[a-zA-z]*){0,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="wildcardVersion">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="(-?\d+[a-zA-z]*-?\d*[a-zA-z]*|\*)(\.(\*|-?\d*[a-zA-z]*-?\d*[a-zA-z]*)){0,3}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="extensionType">
+    <xs:restriction base="xs:integer">
+      <xs:enumeration value="2">
+        <xs:annotation>
+          <xs:documentation>
+            Extension
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="4">
+        <xs:annotation>
+          <xs:documentation>
+            Themes
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="8">
+        <xs:annotation>
+          <xs:documentation>
+            Locale
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="32">
+        <xs:annotation>
+          <xs:documentation>
+            Multiple Item Package
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="applicationGuids">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}">
+        <xs:annotation>
+          <xs:documentation>
+            Firefox
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="{86c18b42-e466-45a9-ae7a-9b95ba6f5640}">
+        <xs:annotation>
+          <xs:documentation>
+            Mozilla
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="{718e30fb-e89b-41dd-9da7-e25a45638b28}">
+        <xs:annotation>
+          <xs:documentation>
+            Sunbird
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="{92650c4d-4b8e-4d2a-b7eb-24ecf4f6b63a}">
+        <xs:annotation>
+          <xs:documentation>
+            SeaMonkey
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="{3550f703-e582-4d05-9a08-453d09bdfdc6}">
+        <xs:annotation>
+          <xs:documentation>
+            Thunderbird
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      
+      <xs:enumeration value="{a463f10c-3994-11da-9945-000d60ca027b}">
+        <xs:annotation>
+          <xs:documentation>
+            Flock
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+
+      <xs:enumeration value="songbird@songbirdnest.com">
+        <xs:annotation>
+          <xs:documentation>
+            Songbird
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+
+      <xs:enumeration value="toolkit@mozilla.org">
+        <xs:annotation>
+          <xs:documentation>
+            Gecko Toolkit
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+
+      <xs:enumeration value="{3db10fab-e461-4c80-8b97-957ad5f8ea47}">
+        <xs:annotation>
+          <xs:documentation>
+            Netscape
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>    
+  </xs:simpleType>
+
+  <xs:simpleType name="applicationTargetIdValues">
+    <xs:union memberTypes="applicationGuids extensionId" />
+  </xs:simpleType>
+
+  <xs:simpleType name="url">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="((http|https|ftp)\://)?[a-zA-Z0-9\-\.]+\.([a-zA-Z]{2,3}|[0-9]{1,3})(:[a-zA-Z0-9]*)?/?([a-zA-Z0-9\-\._\?\,\'/\\\+&amp;%\$#\=~])*[^\.\,\)\(\s]" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="chromeUrl">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="chrome://[/]*([^/\\ \:\*\?&quot;\&lt;\&gt;\|\.][^/\\\:\*\?\&quot;\&lt;\&gt;\|]{0,63}/)*[^/\\ \:\*\?&quot;\&lt;\&gt;\|\.][^/\\\:\*\?\&quot;\&lt;\&gt;\|]{0,63}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name="locale">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="af">
+        <xs:annotation>
+          <xs:documentation>
+            Afrikaans
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="af-ZA">
+        <xs:annotation>
+          <xs:documentation>
+            Afrikaans (South Africa)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="am-ET">
+        <xs:annotation>
+          <xs:documentation>
+            Amharic (Ethiopia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-AE">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (U.A.E.)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-BH">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Bahrain)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-DZ">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Algeria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-EG">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Egypt)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-IQ">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Iraq)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-JO">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Jordan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-KW">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Kuwait)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-LB">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Lebanon)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-LY">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Libya)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-MA">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Morocco)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="arn-CL">
+        <xs:annotation>
+          <xs:documentation>
+            Mapudungun (Chile)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-OM">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Oman)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-QA">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Qatar)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-SA">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Saudi Arabia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-SY">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Syria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-TN">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Tunisia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ar-YE">
+        <xs:annotation>
+          <xs:documentation>
+            Arabic (Yemen)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="as-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Assamese (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="az">
+        <xs:annotation>
+          <xs:documentation>
+            Azeri
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="az-Cyrl-AZ">
+        <xs:annotation>
+          <xs:documentation>
+            Azeri (Cyrillic, Azerbaijan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="az-Latn-AZ">
+        <xs:annotation>
+          <xs:documentation>
+            Azeri (Latin, Azerbaijan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ba-RU">
+        <xs:annotation>
+          <xs:documentation>
+            Bashkir (Russia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="be">
+        <xs:annotation>
+          <xs:documentation>
+            Belarusian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="be-BY">
+        <xs:annotation>
+          <xs:documentation>
+            Belarusian (Belarus)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bg">
+        <xs:annotation>
+          <xs:documentation>
+            Bulgarian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bg-BG">
+        <xs:annotation>
+          <xs:documentation>
+            Bulgarian (Bulgaria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bn-BD">
+        <xs:annotation>
+          <xs:documentation>
+            Bengali (Bangladesh)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bn-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Bengali (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bo-CN">
+        <xs:annotation>
+          <xs:documentation>
+            Tibetan (People's Republic of China)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="br-FR">
+        <xs:annotation>
+          <xs:documentation>
+            Breton (France)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bs-Cyrl-BA">
+        <xs:annotation>
+          <xs:documentation>
+            Bosnian (Cyrillic) (Bosnia and Herzegovina)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="bs-Latn-BA">
+        <xs:annotation>
+          <xs:documentation>
+            Bosnian (Latin) (Bosnia and Herzegovina)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ca">
+        <xs:annotation>
+          <xs:documentation>
+            Catalan
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ca-ES">
+        <xs:annotation>
+          <xs:documentation>
+            Catalan (Catalan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="co-FR">
+        <xs:annotation>
+          <xs:documentation>
+            Corsican (France)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cs">
+        <xs:annotation>
+          <xs:documentation>
+            Czech
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cs-CZ">
+        <xs:annotation>
+          <xs:documentation>
+            Czech (Czech Republic)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="cy-GB">
+        <xs:annotation>
+          <xs:documentation>
+            Welsh (United Kingdom)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="da">
+        <xs:annotation>
+          <xs:documentation>
+            Danish
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="da-DK">
+        <xs:annotation>
+          <xs:documentation>
+            Danish (Denmark)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de">
+        <xs:annotation>
+          <xs:documentation>
+            German
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de-AT">
+        <xs:annotation>
+          <xs:documentation>
+            German (Austria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de-CH">
+        <xs:annotation>
+          <xs:documentation>
+            German (Switzerland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de-DE">
+        <xs:annotation>
+          <xs:documentation>
+            German (Germany)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de-LI">
+        <xs:annotation>
+          <xs:documentation>
+            German (Liechtenstein)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="de-LU">
+        <xs:annotation>
+          <xs:documentation>
+            German (Luxembourg)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dsb-DE">
+        <xs:annotation>
+          <xs:documentation>
+            Lower Sorbian (Germany)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dv">
+        <xs:annotation>
+          <xs:documentation>
+            Divehi
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="dv-MV">
+        <xs:annotation>
+          <xs:documentation>
+            Divehi (Maldives)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="el">
+        <xs:annotation>
+          <xs:documentation>
+            Greek
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="el-GR">
+        <xs:annotation>
+          <xs:documentation>
+            Greek (Greece)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en">
+        <xs:annotation>
+          <xs:documentation>
+            English
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-029">
+        <xs:annotation>
+          <xs:documentation>
+            English (Caribbean)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-AU">
+        <xs:annotation>
+          <xs:documentation>
+            English (Australia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-BZ">
+        <xs:annotation>
+          <xs:documentation>
+            English (Belize)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-CA">
+        <xs:annotation>
+          <xs:documentation>
+            English (Canada)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-GB">
+        <xs:annotation>
+          <xs:documentation>
+            English (United Kingdom)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-IE">
+        <xs:annotation>
+          <xs:documentation>
+            English (Ireland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-IN">
+        <xs:annotation>
+          <xs:documentation>
+            English (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-JM">
+        <xs:annotation>
+          <xs:documentation>
+            English (Jamaica)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-MY">
+        <xs:annotation>
+          <xs:documentation>
+            English (Malaysia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-NZ">
+        <xs:annotation>
+          <xs:documentation>
+            English (New Zealand)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-PH">
+        <xs:annotation>
+          <xs:documentation>
+            English (Republic of the Philippines)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-SG">
+        <xs:annotation>
+          <xs:documentation>
+            English (Singapore)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-TT">
+        <xs:annotation>
+          <xs:documentation>
+            English (Trinidad and Tobago)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-US">
+        <xs:annotation>
+          <xs:documentation>
+            English (United States)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-ZA">
+        <xs:annotation>
+          <xs:documentation>
+            English (South Africa)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="en-ZW">
+        <xs:annotation>
+          <xs:documentation>
+            English (Zimbabwe)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-AR">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Argentina)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-BO">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Bolivia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-CL">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Chile)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-CO">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Colombia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-CR">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Costa Rica)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-DO">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Dominican Republic)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-EC">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Ecuador)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-ES">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Spain)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-GT">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Guatemala)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-HN">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Honduras)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-MX">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Mexico)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-NI">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Nicaragua)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-PA">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Panama)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-PE">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Peru)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-PR">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Puerto Rico)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-PY">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Paraguay)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-SV">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (El Salvador)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-US">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (United States)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-UY">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Uruguay)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="es-VE">
+        <xs:annotation>
+          <xs:documentation>
+            Spanish (Venezuela)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="et">
+        <xs:annotation>
+          <xs:documentation>
+            Estonian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="et-EE">
+        <xs:annotation>
+          <xs:documentation>
+            Estonian (Estonia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="eu">
+        <xs:annotation>
+          <xs:documentation>
+            Basque
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="eu-ES">
+        <xs:annotation>
+          <xs:documentation>
+            Basque (Basque)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fa">
+        <xs:annotation>
+          <xs:documentation>
+            Persian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fa-IR">
+        <xs:annotation>
+          <xs:documentation>
+            Persian (Iran)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fi">
+        <xs:annotation>
+          <xs:documentation>
+            Finnish
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fi-FI">
+        <xs:annotation>
+          <xs:documentation>
+            Finnish (Finland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fil-PH">
+        <xs:annotation>
+          <xs:documentation>
+            Filipino (Philippines)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fo">
+        <xs:annotation>
+          <xs:documentation>
+            Faroese
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fo-FO">
+        <xs:annotation>
+          <xs:documentation>
+            Faroese (Faroe Islands)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr">
+        <xs:annotation>
+          <xs:documentation>
+            French
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-BE">
+        <xs:annotation>
+          <xs:documentation>
+            French (Belgium)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-CA">
+        <xs:annotation>
+          <xs:documentation>
+            French (Canada)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-CH">
+        <xs:annotation>
+          <xs:documentation>
+            French (Switzerland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-FR">
+        <xs:annotation>
+          <xs:documentation>
+            French (France)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-LU">
+        <xs:annotation>
+          <xs:documentation>
+            French (Luxembourg)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fr-MC">
+        <xs:annotation>
+          <xs:documentation>
+            French (Principality of Monaco)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="fy-NL">
+        <xs:annotation>
+          <xs:documentation>
+            Frisian (Netherlands)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ga-IE">
+        <xs:annotation>
+          <xs:documentation>
+            Irish (Ireland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gl">
+        <xs:annotation>
+          <xs:documentation>
+            Galician
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gl-ES">
+        <xs:annotation>
+          <xs:documentation>
+            Galician (Galician)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gsw-FR">
+        <xs:annotation>
+          <xs:documentation>
+            Alsatian (France)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gu">
+        <xs:annotation>
+          <xs:documentation>
+            Gujarati
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="gu-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Gujarati (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ha-Latn-NG">
+        <xs:annotation>
+          <xs:documentation>
+            Hausa (Latin) (Nigeria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="he">
+        <xs:annotation>
+          <xs:documentation>
+            Hebrew
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="he-IL">
+        <xs:annotation>
+          <xs:documentation>
+            Hebrew (Israel)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hi">
+        <xs:annotation>
+          <xs:documentation>
+            Hindi
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hi-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Hindi (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hr">
+        <xs:annotation>
+          <xs:documentation>
+            Croatian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hr-BA">
+        <xs:annotation>
+          <xs:documentation>
+            Croatian (Latin) (Bosnia and Herzegovina)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hr-HR">
+        <xs:annotation>
+          <xs:documentation>
+            Croatian (Croatia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hsb-DE">
+        <xs:annotation>
+          <xs:documentation>
+            Upper Sorbian (Germany)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hu">
+        <xs:annotation>
+          <xs:documentation>
+            Hungarian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hu-HU">
+        <xs:annotation>
+          <xs:documentation>
+            Hungarian (Hungary)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hy">
+        <xs:annotation>
+          <xs:documentation>
+            Armenian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="hy-AM">
+        <xs:annotation>
+          <xs:documentation>
+            Armenian (Armenia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="id">
+        <xs:annotation>
+          <xs:documentation>
+            Indonesian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="id-ID">
+        <xs:annotation>
+          <xs:documentation>
+            Indonesian (Indonesia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ig-NG">
+        <xs:annotation>
+          <xs:documentation>
+            Igbo (Nigeria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ii-CN">
+        <xs:annotation>
+          <xs:documentation>
+            Yi (People's Republic of China)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="is">
+        <xs:annotation>
+          <xs:documentation>
+            Icelandic
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="is-IS">
+        <xs:annotation>
+          <xs:documentation>
+            Icelandic (Iceland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="it">
+        <xs:annotation>
+          <xs:documentation>
+            Italian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="it-CH">
+        <xs:annotation>
+          <xs:documentation>
+            Italian (Switzerland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="it-IT">
+        <xs:annotation>
+          <xs:documentation>
+            Italian (Italy)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="iu-Cans-CA">
+        <xs:annotation>
+          <xs:documentation>
+            Inuktitut (Canada)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="iu-Latn-CA">
+        <xs:annotation>
+          <xs:documentation>
+            Inuktitut (Latin) (Canada)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ja">
+        <xs:annotation>
+          <xs:documentation>
+            Japanese
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ja-JP">
+        <xs:annotation>
+          <xs:documentation>
+            Japanese (Japan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ka">
+        <xs:annotation>
+          <xs:documentation>
+            Georgian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ka-GE">
+        <xs:annotation>
+          <xs:documentation>
+            Georgian (Georgia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kk">
+        <xs:annotation>
+          <xs:documentation>
+            Kazakh
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kk-KZ">
+        <xs:annotation>
+          <xs:documentation>
+            Kazakh (Kazakhstan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kl-GL">
+        <xs:annotation>
+          <xs:documentation>
+            Greenlandic (Greenland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="km-KH">
+        <xs:annotation>
+          <xs:documentation>
+            Khmer (Cambodia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kn">
+        <xs:annotation>
+          <xs:documentation>
+            Kannada
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kn-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Kannada (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ko">
+        <xs:annotation>
+          <xs:documentation>
+            Korean
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kok">
+        <xs:annotation>
+          <xs:documentation>
+            Konkani
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="kok-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Konkani (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ko-KR">
+        <xs:annotation>
+          <xs:documentation>
+            Korean (Korea)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ky">
+        <xs:annotation>
+          <xs:documentation>
+            Kyrgyz
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ky-KG">
+        <xs:annotation>
+          <xs:documentation>
+            Kyrgyz (Kyrgyzstan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lb-LU">
+        <xs:annotation>
+          <xs:documentation>
+            Luxembourgish (Luxembourg)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lo-LA">
+        <xs:annotation>
+          <xs:documentation>
+            Lao (Lao P.D.R.)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lt">
+        <xs:annotation>
+          <xs:documentation>
+            Lithuanian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lt-LT">
+        <xs:annotation>
+          <xs:documentation>
+            Lithuanian (Lithuania)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lv">
+        <xs:annotation>
+          <xs:documentation>
+            Latvian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="lv-LV">
+        <xs:annotation>
+          <xs:documentation>
+            Latvian (Latvia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mi-NZ">
+        <xs:annotation>
+          <xs:documentation>
+            Maori (New Zealand)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mk">
+        <xs:annotation>
+          <xs:documentation>
+            Macedonian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mk-MK">
+        <xs:annotation>
+          <xs:documentation>
+            Macedonian (Former Yugoslav Republic of Macedonia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ml-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Malayalam (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mn">
+        <xs:annotation>
+          <xs:documentation>
+            Mongolian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mn-MN">
+        <xs:annotation>
+          <xs:documentation>
+            Mongolian (Cyrillic, Mongolia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mn-Mong-CN">
+        <xs:annotation>
+          <xs:documentation>
+            Mongolian (Traditional Mongolian) (People's Republic of China)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="moh-CA">
+        <xs:annotation>
+          <xs:documentation>
+            Mohawk (Canada)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mr">
+        <xs:annotation>
+          <xs:documentation>
+            Marathi
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mr-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Marathi (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ms">
+        <xs:annotation>
+          <xs:documentation>
+            Malay
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ms-BN">
+        <xs:annotation>
+          <xs:documentation>
+            Malay (Brunei Darussalam)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ms-MY">
+        <xs:annotation>
+          <xs:documentation>
+            Malay (Malaysia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="mt-MT">
+        <xs:annotation>
+          <xs:documentation>
+            Maltese (Malta)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nb-NO">
+        <xs:annotation>
+          <xs:documentation>
+            Norwegian, BokmÃ¥l (Norway)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ne-NP">
+        <xs:annotation>
+          <xs:documentation>
+            Nepali (Nepal)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nl">
+        <xs:annotation>
+          <xs:documentation>
+            Dutch
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nl-BE">
+        <xs:annotation>
+          <xs:documentation>
+            Dutch (Belgium)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nl-NL">
+        <xs:annotation>
+          <xs:documentation>
+            Dutch (Netherlands)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nn-NO">
+        <xs:annotation>
+          <xs:documentation>
+            Norwegian, Nynorsk (Norway)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="no">
+        <xs:annotation>
+          <xs:documentation>
+            Norwegian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="nso-ZA">
+        <xs:annotation>
+          <xs:documentation>
+            Sesotho sa Leboa (South Africa)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="oc-FR">
+        <xs:annotation>
+          <xs:documentation>
+            Occitan (France)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="or-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Oriya (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pa">
+        <xs:annotation>
+          <xs:documentation>
+            Punjabi
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pa-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Punjabi (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pl">
+        <xs:annotation>
+          <xs:documentation>
+            Polish
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pl-PL">
+        <xs:annotation>
+          <xs:documentation>
+            Polish (Poland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="prs-AF">
+        <xs:annotation>
+          <xs:documentation>
+            Dari (Afghanistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ps-AF">
+        <xs:annotation>
+          <xs:documentation>
+            Pashto (Afghanistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pt">
+        <xs:annotation>
+          <xs:documentation>
+            Portuguese
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pt-BR">
+        <xs:annotation>
+          <xs:documentation>
+            Portuguese (Brazil)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="pt-PT">
+        <xs:annotation>
+          <xs:documentation>
+            Portuguese (Portugal)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="qut-GT">
+        <xs:annotation>
+          <xs:documentation>
+            K'iche (Guatemala)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="quz-BO">
+        <xs:annotation>
+          <xs:documentation>
+            Quechua (Bolivia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="quz-EC">
+        <xs:annotation>
+          <xs:documentation>
+            Quechua (Ecuador)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="quz-PE">
+        <xs:annotation>
+          <xs:documentation>
+            Quechua (Peru)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="rm-CH">
+        <xs:annotation>
+          <xs:documentation>
+            Romansh (Switzerland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ro">
+        <xs:annotation>
+          <xs:documentation>
+            Romanian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ro-RO">
+        <xs:annotation>
+          <xs:documentation>
+            Romanian (Romania)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ru">
+        <xs:annotation>
+          <xs:documentation>
+            Russian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ru-RU">
+        <xs:annotation>
+          <xs:documentation>
+            Russian (Russia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="rw-RW">
+        <xs:annotation>
+          <xs:documentation>
+            Kinyarwanda (Rwanda)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sa">
+        <xs:annotation>
+          <xs:documentation>
+            Sanskrit
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sah-RU">
+        <xs:annotation>
+          <xs:documentation>
+            Yakut (Russia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sa-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Sanskrit (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="se-FI">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Northern) (Finland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="se-NO">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Northern) (Norway)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="se-SE">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Northern) (Sweden)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="si-LK">
+        <xs:annotation>
+          <xs:documentation>
+            Sinhala (Sri Lanka)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sk">
+        <xs:annotation>
+          <xs:documentation>
+            Slovak
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sk-SK">
+        <xs:annotation>
+          <xs:documentation>
+            Slovak (Slovakia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sl">
+        <xs:annotation>
+          <xs:documentation>
+            Slovenian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sl-SI">
+        <xs:annotation>
+          <xs:documentation>
+            Slovenian (Slovenia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sma-NO">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Southern) (Norway)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sma-SE">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Southern) (Sweden)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="smj-NO">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Lule) (Norway)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="smj-SE">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Lule) (Sweden)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="smn-FI">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Inari) (Finland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sms-FI">
+        <xs:annotation>
+          <xs:documentation>
+            Sami (Skolt) (Finland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sq">
+        <xs:annotation>
+          <xs:documentation>
+            Albanian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sq-AL">
+        <xs:annotation>
+          <xs:documentation>
+            Albanian (Albania)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sr">
+        <xs:annotation>
+          <xs:documentation>
+            Serbian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sr-Cyrl-BA">
+        <xs:annotation>
+          <xs:documentation>
+            Serbian (Cyrillic) (Bosnia and Herzegovina)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sr-Cyrl-CS">
+        <xs:annotation>
+          <xs:documentation>
+            Serbian (Cyrillic, Serbia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sr-Latn-BA">
+        <xs:annotation>
+          <xs:documentation>
+            Serbian (Latin) (Bosnia and Herzegovina)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sr-Latn-CS">
+        <xs:annotation>
+          <xs:documentation>
+            Serbian (Latin, Serbia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sv">
+        <xs:annotation>
+          <xs:documentation>
+            Swedish
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sv-FI">
+        <xs:annotation>
+          <xs:documentation>
+            Swedish (Finland)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sv-SE">
+        <xs:annotation>
+          <xs:documentation>
+            Swedish (Sweden)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sw">
+        <xs:annotation>
+          <xs:documentation>
+            Kiswahili
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="sw-KE">
+        <xs:annotation>
+          <xs:documentation>
+            Kiswahili (Kenya)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="syr">
+        <xs:annotation>
+          <xs:documentation>
+            Syriac
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="syr-SY">
+        <xs:annotation>
+          <xs:documentation>
+            Syriac (Syria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ta">
+        <xs:annotation>
+          <xs:documentation>
+            Tamil
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ta-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Tamil (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="te">
+        <xs:annotation>
+          <xs:documentation>
+            Telugu
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="te-IN">
+        <xs:annotation>
+          <xs:documentation>
+            Telugu (India)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tg-Cyrl-TJ">
+        <xs:annotation>
+          <xs:documentation>
+            Tajik (Cyrillic) (Tajikistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="th">
+        <xs:annotation>
+          <xs:documentation>
+            Thai
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="th-TH">
+        <xs:annotation>
+          <xs:documentation>
+            Thai (Thailand)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tk-TM">
+        <xs:annotation>
+          <xs:documentation>
+            Turkmen (Turkmenistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tn-ZA">
+        <xs:annotation>
+          <xs:documentation>
+            Setswana (South Africa)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tr">
+        <xs:annotation>
+          <xs:documentation>
+            Turkish
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tr-TR">
+        <xs:annotation>
+          <xs:documentation>
+            Turkish (Turkey)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tt">
+        <xs:annotation>
+          <xs:documentation>
+            Tatar
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tt-RU">
+        <xs:annotation>
+          <xs:documentation>
+            Tatar (Russia)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="tzm-Latn-DZ">
+        <xs:annotation>
+          <xs:documentation>
+            Tamazight (Latin) (Algeria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ug-CN">
+        <xs:annotation>
+          <xs:documentation>
+            Uighur (People's Republic of China)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uk">
+        <xs:annotation>
+          <xs:documentation>
+            Ukrainian
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uk-UA">
+        <xs:annotation>
+          <xs:documentation>
+            Ukrainian (Ukraine)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ur">
+        <xs:annotation>
+          <xs:documentation>
+            Urdu
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ur-PK">
+        <xs:annotation>
+          <xs:documentation>
+            Urdu (Islamic Republic of Pakistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uz">
+        <xs:annotation>
+          <xs:documentation>
+            Uzbek
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uz-Cyrl-UZ">
+        <xs:annotation>
+          <xs:documentation>
+            Uzbek (Cyrillic, Uzbekistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="uz-Latn-UZ">
+        <xs:annotation>
+          <xs:documentation>
+            Uzbek (Latin, Uzbekistan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="vi">
+        <xs:annotation>
+          <xs:documentation>
+            Vietnamese
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="vi-VN">
+        <xs:annotation>
+          <xs:documentation>
+            Vietnamese (Vietnam)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="wo-SN">
+        <xs:annotation>
+          <xs:documentation>
+            Wolof (Senegal)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="xh-ZA">
+        <xs:annotation>
+          <xs:documentation>
+            isiXhosa (South Africa)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="yo-NG">
+        <xs:annotation>
+          <xs:documentation>
+            Yoruba (Nigeria)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-CHS">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (Simplified)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-CHT">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (Traditional)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-CN">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (People's Republic of China)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-HK">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (Hong Kong S.A.R.)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-MO">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (Macao S.A.R.)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-SG">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (Singapore)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zh-TW">
+        <xs:annotation>
+          <xs:documentation>
+            Chinese (Taiwan)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="zu-ZA">
+        <xs:annotation>
+          <xs:documentation>
+            isiZulu (South Africa)
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

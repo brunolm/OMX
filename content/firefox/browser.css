@@ -1,0 +1,15 @@
+#orkutmanager-button { list-style-image: url("chrome://orkutmanager/skin/icons/m24.png"); 
+position: relative;                            
+}
+toolbar[iconsize="small"] #orkutmanager-button { list-style-image: url("chrome://orkutmanager/skin/icons/m24.png");
+}
+
+#orkutmanager-button-canvas
+{
+    font-size:10px;background:#f00;color:#fff;
+    position:absolute;
+    bottom:8px;right:7px;
+    padding:0px 2px;
+    margin:0;
+    border-radius:4px;
+}

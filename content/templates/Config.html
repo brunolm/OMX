@@ -1,0 +1,392 @@
+﻿<div class="manageraddons config-page">
+    <div class="manager-config manager-config-template">
+        <div class="manager-menu-config">
+            <ul>
+                <li><a href="http://www.orkut.com.br/Main#Communities">${Return to Orkut}</a></li>
+                <li><a href="http://www.orkut.com.br/Main#Home">${Home}</a></li>
+                <li><a href="http://www.orkut.com.br/Main#Profile">${Profile}</a></li>
+                <li><a href="http://www.orkut.com.br/Main#Communities">${Communities}</a></li>
+            </ul>
+        </div>
+
+        <br />
+        <div class="manager-ads-insert" style="width: 790px; margin: 0 auto"></div>
+        <br />
+
+    <div class="manager-page-center">
+    
+            <div class="manager-tab-link">
+                <a href="#OMConfig?tab=general" class="manager-selected">${General}</a>
+                <a href="#OMConfig?tab=text">${Text}</a>
+                <a href="#OMConfig?tab=quote">${Quote}</a>
+                <a href="#OMConfig?tab=images">${Images}</a>
+                <a href="#OMConfig?tab=icons">${Emoticons}</a>
+                <a href="#OMConfig?tab=templates">${Templates}</a>
+                <a href="#OMConfig?tab=fonts">${Fonts}</a>
+                <a href="#OMConfig?tab=menu">${Menu}</a>
+                <a href="#OMConfig?tab=mod">${Moderation}</a>
+                <a href="#OMConfig?tab=stats" style="float:right" class="manager-version-status">${Status}</a>
+            </div>
+
+            <div class="manager-tab-content">
+                <form action="">
+
+                <fieldset class="chk" style="float: left; width: 45%">
+                    <legend>${Features}</legend>
+    
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.Favorites" value="true" /> ${Favorites}
+                        </label>
+                    </ins>
+
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.HideEmail" value="true" /> ${Hide email}
+                        </label>
+                    </ins>
+
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.Shortcut" value="true" /> ${Keybord shortcuts}
+                        </label>
+                    </ins>
+
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.MultiDelete" value="true" /> ${MultiDelete}
+                        </label>
+                    </ins>
+
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.Quote" value="true" /> ${Quote}
+                        </label>
+                    </ins>
+    
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.Share" value="true" /> ${Share}
+                        </label>
+                    </ins>
+    
+                    <ins>
+                        <label>
+                            <input type="checkbox" name="Features.Toolbar" value="true" /> ${Toolbar}
+                        </label>
+                    </ins>
+                </fieldset>
+
+                <div class="clear"></div>
+                    <fieldset>
+                        <legend>${General settings}</legend>
+
+                        <div class="manager-label-container">
+                            <label for="Language">${Language}</label>
+                            <label for="Language">${Time format}</label>
+                            <label for="Language">${Icon URL}</label>
+                        </div>
+
+                        <div class="manager-ins-container">
+                            <ins>
+                                <select name="Language">
+                                    <option>en</option>
+                                    <option>pt</option>
+
+                                    <option>ar</option>
+                                    <option>bg</option>
+                                    <option>ca</option>
+                                    <option>cs</option>
+                                    <option>da</option>
+                                    <option>de</option>
+                                    <option>el</option>
+                                    <option>es</option>
+                                    <option>et</option>
+                                    <option>fa</option>
+                                    <option>fi</option>
+                                    <option>fo</option>
+                                    <option>fr</option>
+                                    <option>he</option>
+                                    <option>hi</option>
+                                    <option>hu</option>
+                                    <option>id</option>
+                                    <option>it</option>
+                                    <option>ja</option>
+                                    <option>ko</option>
+                                    <option>lt</option>
+                                    <option>lv</option>
+                                    <option>nb</option>
+                                    <option>nl</option>
+                                    <option>nn</option>
+                                    <option>pl</option>
+                                    <option>ro</option>
+                                    <option>ru</option>
+                                    <option>sk</option>
+                                    <option>sl</option>
+                                    <option>sv</option>
+                                    <option>ta</option>
+                                    <option>th</option>
+                                    <option>tr</option>
+                                    <option>uk</option>
+                                    <option>vi</option>
+                                    <option>zh</option>
+                                </select>
+                            </ins>
+                            <ins><input type="text" name="TimeFormat" value="" maxlength="16" /></ins>
+                            <ins><input type="text" name="ExtIconUrl" value="" maxlength="400" /></ins>
+                        </div>
+
+                        <div class="manager-clear"></div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="manager-tab-content" style="display: none">
+                <div>
+                    <textarea style="width: 98%; height: 250px" name="TemplateText"></textarea>
+                </div>
+            </div>
+
+            <div class="manager-tab-content" style="display: none">
+                <div>
+                    <textarea style="width: 98%; height: 250px" name="TemplateQuote"></textarea>
+                    <br />
+                    <table class="manager-table-quotevars">
+                        <tr>
+                            <th>Var</th>
+                            <th>Descrição</th>
+                        </tr>
+                        <tr>
+                            <td>{UserName}</td>
+                            <td>Nome do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserLink}</td>
+                            <td>Link do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserImageFull}</td>
+                            <td>Imagem grande do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserImage}</td>
+                            <td>Imagem do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserImage|35x35}</td>
+                            <td>Imagem do usuário |largura x altura</td>
+                        </tr>
+                        <tr>
+                            <td>{UserID}</td>
+                            <td>ID do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{Time}</td>
+                            <td>Hora da postagem</td>
+                        </tr>
+                        <tr>
+                            <td>{Content}</td>
+                            <td>Conteúdo da postagem</td>
+                        </tr>
+                        <tr>
+                            <td>{TopicURL}</td>
+                            <td>Url do tópico</td>
+                        </tr>
+                        <tr>
+                            <td>{PostURL}</td>
+                            <td>Url do post</td>
+                        </tr>
+                        <tr>
+                            <td>{CurrentDate}</td>
+                            <td>Data atual</td>
+                        </tr>
+                        <tr>
+                            <td>{Subject}</td>
+                            <td>Assunto do post</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="manager-tab-content" style="display: none">
+                <div style="height: 400px; overflow-y: auto; overflow-x: hidden;">
+                    <div class="manager-id-template-image-item" style="display: none">
+                        <span class="manager-trash"></span>
+                        <span class="manager-edit"></span>
+                        <a href="" target="_blank"><img alt="om" src="" style="float:left" /></a>
+                        <input type="text" class="manager-template-image-input" />
+                        <div class="manager-clear"></div>
+                    </div>
+                </div>
+                <div style="text-align: right">
+                    <input type="text" class="manager-template-image-new" style="width: 700px" />
+                    <button class="manager-template-image-newButton">${Add new image}</button>
+                </div>
+            </div>
+
+            <div class="manager-tab-content" style="display: none">
+                <div style="height: 400px; overflow-y: auto; overflow-x: hidden;">
+                    <div class="manager-id-template-icon-item" style="display: none">
+                        <span class="manager-trash"></span>
+                        <span class="manager-edit"></span>
+                        <a href="" target="_blank"><img alt="om" src="" style="float:left" /></a>
+                        <input type="text" class="manager-template-icon-input" />
+                        <input type="text" class="manager-template-icon-input-code" />
+                        <div class="manager-clear"></div>
+                    </div>
+                </div>
+                <div style="text-align: right">
+                    <input type="text" class="manager-template-icon-new-link" style="width: 575px;" />
+                    <input type="text" class="manager-template-icon-new-code" style="width: 160px;" />
+                    <button class="manager-template-icon-newButton">${Add new icon}</button>
+                </div>
+            </div>
+            
+            <div class="manager-tab-content" style="display: none">
+                <div style="height: 420px; overflow-y: auto; overflow-x: hidden;">
+                    <div class="manager-id-template-message-item" style="display: none">
+                        <span class="manager-trash"></span>
+                        <span class="manager-edit"></span>
+                        <textarea class="manager-template-message-input"></textarea>
+                        <div class="manager-clear"></div>
+                    </div>
+                </div>
+                <div>
+                    <button class="manager-template-message-saveChanges">${Add new template}</button>
+                    <textarea class="manager-template-message-new" style="width: 80%; height: 70px;"></textarea>
+                </div>
+            </div>
+            
+            <div class="manager-tab-content" style="display: none">
+                <div style="height: 420px; overflow-y: auto; overflow-x: hidden;">
+                    <div class="manager-id-template-font-item" style="display: none">
+                        <span class="manager-trash"></span>
+                        <span class="manager-edit"></span>
+                        <input type="text" class="manager-template-font-input" />
+                        <div class="manager-clear"></div>
+                    </div>
+                </div>
+                <div>
+                    <button class="manager-template-font-saveChanges">${Add new font}</button>
+                    <input type="text" class="manager-template-font-new" style="width: 80%;" />
+                </div>
+            </div>
+            
+            <div class="manager-tab-content" style="display: none">
+                <div style="height: 420px; overflow-y: auto; overflow-x: hidden;">
+                    <div class="manager-id-template-menu-item" style="display: none">
+                        <span class="manager-trash"></span>
+                        <span class="manager-edit"></span>
+                        <input type="text" class="manager-template-menu-input-link" />
+                        <input type="text" class="manager-template-menu-input-name" />
+                        <div class="manager-clear"></div>
+                    </div>
+                </div>
+                <div>
+                    <button class="manager-template-menu-saveChanges">${Add new menu}</button>
+                    <input type="text" class="manager-template-menu-new-link" style="width: 575px;" />
+                    <input type="text" class="manager-template-menu-new-name" style="width: 160px;" />
+
+                </div>
+            </div>
+        
+            <div class="manager-tab-content" style="display: none">
+                <div>
+                    <textarea style="width: 98%; height: 250px" name="ModerationText"></textarea>
+                </div>
+                <table class="manager-table-quotevars">
+                        <tr>
+                            <th>Var</th>
+                            <th>Descrição</th>
+                        </tr>
+                        <tr>
+                            <td>{UserName}</td>
+                            <td>Nome do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserLink}</td>
+                            <td>Link do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserImageFull}</td>
+                            <td>Imagem grande do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserImage}</td>
+                            <td>Imagem do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{UserImage|35x35}</td>
+                            <td>Imagem do usuário |largura x altura</td>
+                        </tr>
+                        <tr>
+                            <td>{UserID}</td>
+                            <td>ID do usuário</td>
+                        </tr>
+                        <tr>
+                            <td>{Time}</td>
+                            <td>Hora da postagem</td>
+                        </tr>
+                        <tr>
+                            <td>{Content}</td>
+                            <td>Conteúdo da postagem</td>
+                        </tr>
+                        <tr>
+                            <td>{TopicURL}</td>
+                            <td>Url do tópico</td>
+                        </tr>
+                        <tr>
+                            <td>{PostURL}</td>
+                            <td>Url do post</td>
+                        </tr>
+                        <tr>
+                            <td>{CurrentDate}</td>
+                            <td>Data atual</td>
+                        </tr>
+                        <tr>
+                            <td>{Subject}</td>
+                            <td>Assunto do post</td>
+                        </tr>
+                        <tr>
+                            <td>{ModActions}</td>
+                            <td>Ações tomadas</td>
+                        </tr>
+                        <tr>
+                            <td>{ModReasons}</td>
+                            <td>Motivos</td>
+                        </tr>
+                    </table>
+            </div>
+
+            <div class="manager-tab-content manager-status-content" style="display: none">
+                
+            </div>
+
+            <div style="clear:both"></div>
+            <br />
+            <br />
+            <hr class="manager-shadow" />
+            <div style="clear:both"></div>
+            <button type="submit">${Save}</button>
+            <button type="reset">${Cancel}</button>
+
+            <a href="javascript:window.location.reload();void(0);">${Refresh page}</a>
+            
+        <div style="float:right">
+            <button class="manager-export-submit">${Export}</button>
+            <button class="manager-import-show">${Import}...</button>
+            -
+            <a href="javascript:void(0);" class="manager-reset">${Reset}</a>
+        </div>
+
+
+            <br />
+            <div class="manager-import-container" style="display: none; overflow: hidden">
+                <div style="float:right;">
+                    <input type="file" value="${Select a file}" class="manager-import-file" />
+                    <button class="manager-import-submit">${Import}</button>
+                </div>
+            </div>
+      </div>  
+    </div>
+</div>

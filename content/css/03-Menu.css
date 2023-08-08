@@ -1,0 +1,18 @@
+.manager-menu-dropdown
+{
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    border-radius: 4px;
+    box-shadow: 5px 5px 10px #000;
+    width: 280px;
+    position: absolute;
+    text-align: left;
+    z-index: 300;
+}
+.manager-menu-dropdown > a
+{
+    display: block;
+    cursor: pointer;
+    padding: 10px;
+}
+.manager-menu-dropdown > a:hover { background: #f5f5f5; }

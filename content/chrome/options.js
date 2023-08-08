@@ -1,0 +1,1 @@
+window.location.href="http://manageraddons.com/omx/configext";

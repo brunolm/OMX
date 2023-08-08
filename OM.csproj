@@ -1,0 +1,230 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8C728A69-6A02-4B80-AD72-0E52765D1CA0}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OM</RootNamespace>
+    <AssemblyName>OM</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="content\firefox\options.xul" />
+    <Content Include="content\bin\02-QueryString.js" />
+    <Content Include="content\bin\01-Framework.min.js" />
+    <Content Include="content\bin\00-aStart.min.js" />
+    <Content Include="content\bin\01.02-LanguagePack.js" />
+    <Content Include="content\bin\03.02-jQuery.DefaultInput.js" />
+    <Content Include="content\bin\03.01-jQuery.MouseClick.js" />
+    <Content Include="content\bin\01.01-Lang-pt.js" />
+    <Content Include="content\bin\01-InitSettings.min.js" />
+    <Content Include="content\bin\04-OM.js" />
+    <Content Include="content\bin\03.10-jscolor.min.js" />
+    <Content Include="content\bin\03.00-jQuery.Linq.js" />
+    <Content Include="content\bin\01-Generic.js" />
+    <Content Include="content\bin\05-Share.js" />
+    <Content Include="content\bin\jquery-1.7.1.min.js" />
+    <Content Include="content\bin\Lang-base.js" />
+    <Content Include="content\chrome\bg.js" />
+    <Content Include="content\chrome\bg_ga.js" />
+    <Content Include="content\chrome\options.js" />
+    <Content Include="content\chrome\options.html" />
+    <Content Include="content\chrome\run.js" />
+    <Content Include="content\core\00-Loader.js" />
+    <Content Include="content\core\99-End.min.js" />
+    <Content Include="content\core\03-Pages.js" />
+    <Content Include="content\core\05-Shortcuts.js" />
+    <Content Include="content\core\50-Settings.js" />
+    <Content Include="content\core\02-AddonScope.min.js" />
+    <Content Include="content\core\09-Ads.js" />
+    <Content Include="content\bin\03.01-jQuery.Keyboard.js" />
+    <Content Include="content\bin\03.02-jQuery.Input.js" />
+    <Content Include="content\chrome\background.html" />
+    <Content Include="content\chrome\loader.js" />
+    <Content Include="content\core\01-Global.js" />
+    <Content Include="content\core\00-InitialSetup.js" />
+    <Content Include="content\core\06-PostEditor.js" />
+    <Content Include="content\core\07-PostParser.js" />
+    <Content Include="content\core\05-GlobalEvents.js" />
+    <Content Include="content\core\07-PostsPageParser.js" />
+    <Content Include="content\core\10-MenuDropdown.js" />
+    <Content Include="content\core\11-HideEmail.js" />
+    <Content Include="content\core\08-Favorites.js" />
+    <Content Include="content\core\08-CommunityLinks.js" />
+    <Content Include="content\css\01-Global.css" />
+    <Content Include="content\css\05-PostEditor.css" />
+    <Content Include="content\css\02-Modal.css" />
+    <Content Include="content\css\05.50-SelectorModal.css" />
+    <Content Include="content\css\05.01-Font.css" />
+    <Content Include="content\css\05.02-Align.css" />
+    <Content Include="content\css\05.04-Templates.css" />
+    <Content Include="content\css\05.03-Transforms.css" />
+    <Content Include="content\css\05.03-Actions.css" />
+    <Content Include="content\css\05.03-AdvancedFormat.css" />
+    <Content Include="content\css\07-Posts.css" />
+    <Content Include="content\css\03-Menu.css" />
+    <Content Include="content\css\04-GenericElements.css" />
+    <Content Include="content\css\02-Ads.css" />
+    <Content Include="content\css\05-Favorites.css" />
+    <Content Include="content\css\05-Share.css" />
+    <Content Include="content\css\05-ModTools.css" />
+    <Content Include="content\firefox\browser.css" />
+    <Content Include="content\css\50-Config.css" />
+    <Content Include="content\firefox\browser.js" />
+    <Content Include="content\firefox\badge.js" />
+    <Content Include="content\firefox\pref.js" />
+    <Content Include="content\firefox\loader.js" />
+    <Content Include="content\templates\Config.html" />
+    <Content Include="content\templates\HelpBox.html" />
+    <Content Include="README.txt" />
+    <Content Include="license.txt" />
+    <Content Include="skin\icons\m128.png" />
+    <Content Include="skin\icons\m16.png" />
+    <Content Include="skin\icons\m24.png" />
+    <Content Include="skin\icons\m32.png" />
+    <Content Include="skin\icons\m48.png" />
+    <Content Include="skin\icons\m64.png" />
+    <Content Include="skin\toolbar\a.gif" />
+    <Content Include="skin\toolbar\anchor.gif" />
+    <Content Include="skin\toolbar\b.gif" />
+    <Content Include="skin\toolbar\bg.gif" />
+    <Content Include="skin\toolbar\cancel.gif" />
+    <Content Include="skin\toolbar\center.gif" />
+    <Content Include="skin\toolbar\copy-29.gif" />
+    <Content Include="skin\toolbar\copy.gif" />
+    <Content Include="skin\toolbar\cut-35.gif" />
+    <Content Include="skin\toolbar\cut.gif" />
+    <Content Include="skin\toolbar\erase.gif" />
+    <Content Include="skin\toolbar\find.gif" />
+    <Content Include="skin\toolbar\font-size.gif" />
+    <Content Include="skin\toolbar\font.gif" />
+    <Content Include="skin\toolbar\heading.gif" />
+    <Content Include="skin\toolbar\help.gif" />
+    <Content Include="skin\toolbar\history.gif" />
+    <Content Include="skin\toolbar\hr.gif" />
+    <Content Include="skin\toolbar\html.gif" />
+    <Content Include="skin\toolbar\i.gif" />
+    <Content Include="skin\toolbar\image.gif" />
+    <Content Include="skin\toolbar\indent.gif" />
+    <Content Include="skin\toolbar\justify.gif" />
+    <Content Include="skin\toolbar\left.gif" />
+    <Content Include="skin\toolbar\movie.gif" />
+    <Content Include="skin\toolbar\new.gif" />
+    <Content Include="skin\toolbar\ol.gif" />
+    <Content Include="skin\toolbar\outdent.gif" />
+    <Content Include="skin\toolbar\pagebreak.gif" />
+    <Content Include="skin\toolbar\q.gif" />
+    <Content Include="skin\toolbar\redo.gif" />
+    <Content Include="skin\toolbar\removeFormat.gif" />
+    <Content Include="skin\toolbar\right.gif" />
+    <Content Include="skin\toolbar\s.gif" />
+    <Content Include="skin\toolbar\save.gif" />
+    <Content Include="skin\toolbar\separator.gif" />
+    <Content Include="skin\toolbar\sub.gif" />
+    <Content Include="skin\toolbar\sup.gif" />
+    <Content Include="skin\toolbar\symbol.gif" />
+    <Content Include="skin\toolbar\time.gif" />
+    <Content Include="skin\toolbar\u.gif" />
+    <Content Include="skin\toolbar\ul.gif" />
+    <Content Include="skin\toolbar\undo.gif" />
+    <Content Include="skin\toolbar\unlink.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="chrome.manifest" />
+    <None Include="content\firefox\browser.xul">
+      <SubType>Designer</SubType>
+    </None>
+    <Content Include="defaults\preferences\default.js" />
+    <None Include="install.rdf">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="manifest.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="content\release\" />
+    <Folder Include="skin\xul\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Copyright.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>addonmin $(ConfigurationName) "$(ProjectDir)Content\Bin\\" "$(ProjectDir)Content\Release\01-bin.min.js" "$(ProjectDir)Content\Core\\" "$(ProjectDir)Content\Release\02-core.min.js" "$(ProjectDir)Content\Css\\" "$(ProjectDir)Content\Css\default.css" "$(ProjectDir)Content\Release\\" "$(ProjectDir)Content\Release\all.js"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>extensionpacker "$(ProjectDir)\" "$(ProjectDir)..\Deploy\$(SolutionName)" "$(ProjectDir)..\omx.pem"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

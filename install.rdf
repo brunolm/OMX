@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<RDF:RDF xmlns:em="http://www.mozilla.org/2004/em-rdf#"
+         xmlns:NC="http://home.netscape.com/NC-rdf#"
+         xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <RDF:Description RDF:about="urn:mozilla:install-manifest"
+                   em:id="{00c1a78c-a065-48bd-a294-f016d0a68f6f}"
+                   em:type="2"
+                   em:name="Orkut Manager"
+                   em:version="4.4.3"
+                   em:description="Adicione mais funções ao seu Orkut! Você pode citar mensagens, usar a barra de ferramentas para criar scraps e posts personalizados, usar a resposta rápida em tópicos, adicionar nicks para os tópicos, favoritar communidades/tópicos, gerenciar communidades e topics, auto update lista de tópicos, aceitar membros em massa na sua comunidade, remover promova/anuncios, ajeitar o layout e muito mais!"
+                   em:creator="Bruno Leonardo Michels"
+                   em:contributor="Andre Steinn"
+                   em:homepageURL="http://www.manageraddons.com/"
+                   em:iconURL="chrome://orkutmanager/skin/icons/m32.png"
+                   em:optionsURL="chrome://orkutmanager/content/firefox/options.xul"
+                   em:updateURL="http://www.manageraddons.info/dl/firefox/omx/update.rdf"
+                   em:bootstrap="false"
+                   em:updateKey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCre6/m3jpMzrRKmzIxETkpBXpspzmWEM0n9Yw2gUPEdL81hrGg15Z1+FR+++l4sH+N8AZqEDG8FYr3XCc9m0dETmCVAHDinoajvD9pN4DyqBaErtGbElkJfPhWXHl4b86ktfV4wGtbyzj9Xf9ZxzPQAG6QPvdqUzRElLcAwN8yEQIDAQAB">
+    <em:localized RDF:resource="rdf:#$g3abg"/>
+    <em:localized RDF:resource="rdf:#$l3abg"/>
+    <em:targetApplication RDF:resource="rdf:#$x3abg"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$x3abg"
+                   em:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
+                   em:minVersion="8.0"
+                   em:maxVersion="28.0" />
+  <RDF:Description RDF:about="rdf:#$l3abg"
+                   em:locale="pt-BR"
+                   em:name="Orkut Manager"
+                   em:description="Adicione mais funções ao seu Orkut! Você pode citar mensagens, usar a barra de ferramentas para criar scraps e posts personalizados, usar a resposta rápida em tópicos, adicionar nicks para os tópicos, favoritar communidades/tópicos, gerenciar communidades e topics, auto update lista de tópicos, aceitar membros em massa na sua comunidade, remover promova/anuncios, ajeitar o layout e muito mais!" />
+  <RDF:Description RDF:about="rdf:#$g3abg"
+                   em:locale="en-US"
+                   em:name="Orkut Manager"
+                   em:description="Manage orkut. You can quote messages, use the toolbar to format your text, use the quickreply button to reply fast on topics, use default colors and a signature for your posts, bookmark communities/topics, edit and create menus, manage communities/topics with an auto-update, accept multiple users on a community, remove ads, fix the layout and much more" />
+</RDF:RDF>

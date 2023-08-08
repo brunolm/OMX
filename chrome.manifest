@@ -1,0 +1,5 @@
+content	orkutmanager content/
+overlay	chrome://browser/content/browser.xul chrome://orkutmanager/content/firefox/browser.xul
+style chrome://global/content/customizeToolbar.xul chrome://orkutmanager/content/firefox/browser.css
+
+skin orkutmanager classic skin/

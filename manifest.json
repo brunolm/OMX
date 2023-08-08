@@ -1,0 +1,67 @@
+﻿{
+    "name": "Orkut Manager",
+    "version": "4.4.3",
+    "description": "Para o novo Orkut. Adicione mais funções ao sua rede! Cite mensagens (quote), add comunidades/topicos nos favoritos, use a toolbar e muito mais!",
+    "manifest_version": 2,
+    "homepage_url": "http://www.manageraddons.com/",
+    "options_page": "content/chrome/options.html",
+    "icons":
+    {
+        "16": "skin/icons/m16.png",
+        "48": "skin/icons/m48.png",
+        "128": "skin/icons/m128.png"
+    },
+    "web_accessible_resources":
+    [
+        "skin/icons/m16.png",
+        "skin/icons/m32.png",
+        "skin/icons/m48.png"
+    ],
+    "browser_action":
+    {
+        "default_icon": "skin/icons/m48.png"
+    },
+    "background": { "page": "content/chrome/background.html" },
+    "permissions": [ "tabs", "http://*/*", "https://*/*" ],
+    "content_scripts":
+    [
+        {
+            "run_at" : "document_start",
+            "matches":
+            [
+                "http://orkutmanager.net/*"
+                , "http://www.manageraddons.com/omx/*"
+                , "http://manageraddons.com/omx/*"
+                , "http://www.orkutmanager.net/*"
+                , "http://www.orkut.com/*"
+                , "http://sandbox.orkut.com/*"
+                , "http://www.orkut.com.br/*"
+                , "http://www.orkut.co.in/*"
+                , "http://www.orkut.co.uk/*"
+                , "http://www.orkut.pt/*"
+                , "http://www.orkut.com.au/*"
+                , "http://www.orkut.es/*"
+                , "http://www.orkut.pt/*"
+                , "http://www.orkut.co.nz/*"
+                , "http://www.orkut.gr/*"
+                , "http://www.orkut.de/*"
+                , "http://www.orkut.nl/*"
+                , "http://www.orkut.be/*"
+                , "http://www.orkut.ch/*"
+                , "http://www.orkut.bj/*"
+                , "http://*.doubleclick.net/*"
+            ],
+            "js":
+            [
+                "content/bin/jquery-1.7.1.min.js"
+                , "content/chrome/loader.js"
+                , "content/release/all.js"
+                , "content/chrome/run.js"
+            ],
+            "css":
+            [
+                "content/css/default.css"
+            ]
+        }
+    ]
+}

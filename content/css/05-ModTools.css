@@ -1,0 +1,35 @@
+.manager-mod-button
+{
+    float: right;
+    font-size: 10px;
+    top: -2px;
+    position: relative;
+    height: 15px;
+    padding: 0 5px;
+}
+
+.manager-moderation-panel > div
+{
+    padding: 10px;
+}
+
+.manager-moderation-panel .manager-moderation-actions label
+{
+    display: block;
+}
+.manager-moderation-panel .manager-moderation-actions div
+{
+    position: inherit !important;
+}
+
+.manager-moderation-panel .manager-moderation-reasons label
+{
+    padding-right: 14px;
+}
+
+.manager-moderation-panel .manager-moderation-reasons textarea
+{
+    display: block;
+    width: 98%;
+    height: 100px;
+}

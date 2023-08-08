@@ -1,0 +1,18 @@
+.manager-font-size-selector > div,
+.manager-item-selector > div { cursor: pointer; word-break: break-word; }
+.manager-font-size-selector > div:nth-child(even),
+.manager-item-selector > div:nth-child(even) { background: #f0f0f0; }
+.manager-font-size-selector > div:hover,
+.manager-item-selector > div:hover { background: silver; }
+.manager-item-big span { font-size: 3em }
+.manager-font-size-selector button,
+.manager-item-selector button { float: right }
+
+.manager-image-selector { text-align: center; }
+.manager-image-selector > img { padding: 10px; max-height: 400px; max-width: 680px; cursor: pointer; }
+
+.manager-icon-selector > img { padding: 10px; max-width: 64px; max-height: 64px; cursor: pointer; }
+
+
+.manager-symbol-block { width: 20px; height: 20px; display: inline-block; cursor: pointer; text-align: center; }
+.manager-symbol-block:nth-child(even) { background: #f0f0f0; }

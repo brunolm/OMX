@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<window
+    id="manageraddons-omx-options"
+    title="OMX"
+    orient="horizontal"
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+    <script type="application/x-javascript">
+        var win = Components.classes['@mozilla.org/appshell/window-mediator;1']
+              .getService(Components.interfaces.nsIWindowMediator)
+              .getMostRecentWindow('navigator:browser');
+        win.openUILinkIn('http://www.manageraddons.com/omx/configext', 'tab');
+
+        window.close();
+    </script>
+
+</window>
